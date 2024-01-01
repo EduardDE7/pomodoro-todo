@@ -38,8 +38,6 @@ export const Timer = () => {
     secondsLeftRef.current = nextSeconds;
   }
   useEffect(() => {
-    switchMode();
-
     secondsLeftRef.current = settings.sessionMinutes * 60;
     setSecondsLeft(secondsLeftRef.current);
 
@@ -52,10 +50,10 @@ export const Timer = () => {
       }
 
       tick();
-    }, 1000);
+    }, 10);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [settings]);
 
   const totalSeconds = isSession
     ? settings.sessionMinutes * 60
@@ -67,10 +65,10 @@ export const Timer = () => {
   if (seconds < 10) seconds = '0' + seconds;
 
   return (
-    <div className="md:w-2/4 border border-gray-400/30 p-6 rounded-xl shadow-sm">
-      <h2 className="text-2xl mb-6">Timer</h2>
-      <hr className="border-gray-400/30 mb-6" />
-      <div className="flex justify-between items-center mb-16">
+    <div className="p-6 border shadow-sm md:w-2/4 border-gray-400/30 rounded-xl">
+      <h2 className="mb-6 text-2xl">Timer</h2>
+      <hr className="mb-6 border-gray-400/30" />
+      <div className="flex items-center justify-between mb-16">
         <p className="text-lg">Mode:</p>
         <button
           onClick={() => switchMode()}
@@ -82,7 +80,7 @@ export const Timer = () => {
           {isSession ? 'Focus' : 'Pause'}
         </button>
       </div>
-      {/* <div className="flex justify-between items-center mb-16">
+      {/* <div className="flex items-center justify-between mb-16">
         <p className="text-lg">Pause Mode:</p>
         <button className="btn btn-sm btn-outline btn-warning">Long</button>
       </div> */}
@@ -102,7 +100,7 @@ export const Timer = () => {
           {minutes + ':' + seconds}
         </div>
       </div>
-      <div className="flex gap-4 justify-center">
+      <div className="flex justify-center gap-4">
         <button
           onClick={() => settings.setShowSettings(true)}
           className="btn btn-circle"
@@ -115,7 +113,7 @@ export const Timer = () => {
               setIsPaused(false);
               isPausedRef.current = false;
             }}
-            className="btn btn-circle mt-3"
+            className="mt-3 btn btn-circle"
           >
             <PlayIcon />
           </button>
@@ -125,7 +123,7 @@ export const Timer = () => {
               setIsPaused(true);
               isPausedRef.current = true;
             }}
-            className="btn btn-circle mt-3"
+            className="mt-3 btn btn-circle"
           >
             <PauseIcon />
           </button>
