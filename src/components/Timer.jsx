@@ -13,10 +13,6 @@ export const Timer = () => {
   const [mode, setMode] = useState('session');
   const [secondsLeft, setSecondsLeft] = useState(0);
 
-  const changeMode = () => {
-    setMode(mode === 'session' ? 'break' : 'session');
-  };
-
   const secondsLeftRef = useRef(secondsLeft);
   const isPausedRef = useRef(isPaused);
   const modeRef = useRef(mode);
@@ -59,7 +55,7 @@ export const Timer = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [settings]);
+  }, []);
 
   const totalSeconds = isSession
     ? settings.sessionMinutes * 60
